@@ -5,7 +5,7 @@ install:
 	pip install -r ~/RE-Pred-App/requirements.txt
 
 test:
-	python -m pytest -vv --cov=RE-Pred-App *.py
+	python -m pytest -vv --cov=RE-Pred-App RE-Pred-App/*.py
 	#PYTHONPATH=. && py.test --nbval-lax notebooks/*.ipynb
 
 lint:
