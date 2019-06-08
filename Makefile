@@ -2,13 +2,13 @@ setup:
 	python3 -m venv ~/.gcp-real-estate-app
 
 install:
-	pip install -r requirements.txt
+	pip install -r ~/RE-Pred-App/requirements.txt
 
 test:
-	python -m pytest -vv *.py
+	python -m pytest -vv --cov=RE-Pred-App *.py
 	#PYTHONPATH=. && py.test --nbval-lax notebooks/*.ipynb
 
 lint:
-	pylint --disable=R,C *
+	pylint --disable=R,C RE-Pred-App
 
 all: install lint test
