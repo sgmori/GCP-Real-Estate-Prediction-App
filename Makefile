@@ -9,6 +9,6 @@ test:
 	#PYTHONPATH=. && py.test --nbval-lax notebooks/*.ipynb
 
 lint:
-	pylint --disable=R,C static templates *.py *.yaml
+	pylint --disable=R,C static templates *.py
 
 all: install lint test
