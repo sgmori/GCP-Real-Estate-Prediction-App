@@ -5,7 +5,7 @@ install:
 	pip install -r ~/requirements.txt
 
 test:
-	python -m pytest -vv --cov=main_test.py main.py
+	python -m pytest -vv --cov=main.py main_test.py
 	#PYTHONPATH=. && py.test --nbval-lax notebooks/*.ipynb
 
 lint:
