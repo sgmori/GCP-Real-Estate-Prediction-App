@@ -1,3 +1,17 @@
+# Copyright 2018 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # [START gae_python37_bigquery]
 import concurrent.futures
 
@@ -13,43 +27,15 @@ bigquery_client = bigquery.Client()
 def main():
     query_job = bigquery_client.query(
         """
-        #standardSQL
         SELECT
-        *
-        FROM
-        ml.PREDICT(MODEL `msds-434-analytics-app.house_analytics`.house_price_model2,
-        (
-
-        #standardSQL
-        WITH params AS (
-            SELECT
-            1 AS TRAIN,
-            2 AS EVAL
-            ),
-
-        house_sales AS (
-        SELECT
-            bedrooms,
-            bathrooms,
-            sqft_living,
-            sqft_lot,
-            waterfront,
-            condition,
-            grade,
-            yr_built,
-            zipcode,
-            price
-        FROM
-            `msds-434-analytics-app.house_analytics.kc_house_data_clean`, params
-        WHERE
-            price > 0 AND bedrooms < 6
-            AND MOD(ABS(FARM_FINGERPRINT(CAST(id AS STRING))),1000) = params.EVAL
-        )
-
-
-        SELECT *
-        FROM house_sales
-        ))
+        CONCAT(
+            'https://stackoverflow.com/questions/',
+            CAST(id as STRING)) as url,
+        view_count
+        FROM `bigquery-public-data.stackoverflow.posts_questions`
+        WHERE tags like '%google-bigquery%'
+        ORDER BY view_count DESC
+        LIMIT 10
     """
     )
 
