@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+
+<meta charset="utf-8" />
+<title>Query Result</title>
+
+<table>
+    <tr>
+        <th>URL</th>
+        <th>View Count</th>
+    </tr>
+    {% for result in results %}
+    <tr>
+        <td>{{ result[0] }}</td>
+        <td>{{ result[1] }}</td>
+    </tr>
+    {% endfor %}
+</table>
