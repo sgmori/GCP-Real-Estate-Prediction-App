@@ -7,15 +7,54 @@ app = Flask(__name__)
 
 
 @app.route('/')
-def root():
-    # For the sake of example, use static information to inflate the template.
-    # This will be replaced with real information in later steps.
-    dummy_times = [datetime.datetime(2018, 1, 1, 10, 0, 0),
-                   datetime.datetime(2018, 1, 2, 10, 30, 0),
-                   datetime.datetime(2018, 1, 3, 11, 0, 0),
-                   ]
+def predict_model():
+    client = bigquery.Client()
+    sql = """
+    #standardSQL
+    SELECT
+    *
+    FROM
+    ml.PREDICT(MODEL `msds-434-analytics-app.house_analytics`.house_price_model2,
+    (
 
-    return render_template('index.html', times=dummy_times)
+    #standardSQL
+    WITH params AS (
+        SELECT
+        1 AS TRAIN,
+        2 AS EVAL
+        ),
+
+    house_sales AS (
+    SELECT
+        bedrooms,
+        bathrooms,
+        sqft_living,
+        sqft_lot,
+        waterfront,
+        condition,
+        grade,
+        yr_built,
+        zipcode,
+        price
+    FROM
+        `msds-434-analytics-app.house_analytics.kc_house_data_clean`, params
+    WHERE
+        price > 0 AND bedrooms < 6
+        AND MOD(ABS(FARM_FINGERPRINT(CAST(id AS STRING))),1000) = params.EVAL
+    )
+
+
+    SELECT *
+    FROM house_sales
+    ))
+    """
+    # Run a Standard SQL query using the environment's default project
+    df = client.query(sql).to_dataframe()
+
+    # Run a Standard SQL query with the project set explicitly
+    project_id = 'msds-434-analytics-app'
+    df = client.query(sql, project=project_id).to_dataframe()
+    return df
 
 
 if __name__ == '__main__':
