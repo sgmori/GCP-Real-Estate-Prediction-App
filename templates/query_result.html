@@ -1,17 +1,34 @@
 <!DOCTYPE html>
-
 <meta charset="utf-8" />
 <title>Query Result</title>
 
 <table>
     <tr>
-        <th>URL</th>
-        <th>View Count</th>
+        <th>predicted_price</th>
+        <th>bedrooms</th>
+        <th>bathrooms</th>
+        <th>sqft_living</th>
+        <th>sqft_lot</th>
+        <th>waterfront</th>
+        <th>condition</th>
+        <th>grade</th>
+        <th>yr_built</th>
+        <th>zipcode</th>
+        <th>price</th>
     </tr>
     {% for result in results %}
     <tr>
         <td>{{ result[0] }}</td>
         <td>{{ result[1] }}</td>
+        <td>{{ result[2] }}</td>
+        <td>{{ result[3] }}</td>
+        <td>{{ result[4] }}</td>
+        <td>{{ result[5] }}</td>
+        <td>{{ result[6] }}</td>
+        <td>{{ result[7] }}</td>
+        <td>{{ result[8] }}</td>
+        <td>{{ result[9] }}</td>
+        <td>{{ result[10] }}</td>
     </tr>
     {% endfor %}
 </table>
