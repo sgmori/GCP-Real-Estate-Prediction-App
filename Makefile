@@ -5,10 +5,9 @@ install:
 	pip install -r ~/requirements.txt
 
 test:
-	python -m pytest -vv --cov=main.py main_test.py
-	#PYTHONPATH=. && py.test --nbval-lax notebooks/*.ipynb
+	#python -m pytest -vv --cov=main.py main_test.py
 
 lint:
-	pylint --disable=R,C static templates *.py
+	pylint --disable=R,C templates *.py
 
 all: install lint test
