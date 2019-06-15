@@ -1,7 +1,3 @@
-import concurrent.futures
-from unittest import mock
-
-from google.cloud import bigquery
 import pytest
 
 
