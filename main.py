@@ -53,7 +53,7 @@ def main():
 
     return flask.redirect(
         flask.url_for(
-            "results",
+            "query_results",
             project_id=query_job.project,
             job_id=query_job.job_id,
             location=query_job.location,
@@ -61,8 +61,8 @@ def main():
     )
 
 
-@app.route("/results")
-def results():
+@app.route("/query_results")
+def query_results():
     project_id = flask.request.args.get("project_id")
     job_id = flask.request.args.get("job_id")
     location = flask.request.args.get("location")
